@@ -1,4 +1,5 @@
 import { User } from "../models/auth.model.js";
+import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js";
 
 export const signup = async (req, res) => {
     const { name, email, password } = req.body;
@@ -23,6 +24,20 @@ export const signup = async (req, res) => {
             verificationToken,
             verificationTokenExpiresAt: Date.now() + 24 * 60 * 60 * 1000, // 24 hour
         });
+
+        // jwt
+        generateTokenAndSetCookie(res, user._id);
+
+        res.status(201).json({
+            success: true,
+            message: "User created successfully",
+            user: {
+                ...user._doc,
+                password: undefined,
+            }
+        });
+
+
 
         await user.save();
         res.status(201).json({ success: true, message: "User created successfully" });
