@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-
+import cookieParser from 'cookie-parser';
 import { connectDB } from './db/connectDB.js';
 import authRoutes from "./routes/auth.route.js";
 
@@ -14,6 +14,8 @@ app.get('/', (req, res) => {
 });
 
 app.use(express.json()); // allows us to parse incoming requests: req.body 
+app.use(cookieParser()); // allowq us to parse cookies: req.cookies
+
 app.use("/api/auth", authRoutes);
 
 app.listen(PORT, () => {
