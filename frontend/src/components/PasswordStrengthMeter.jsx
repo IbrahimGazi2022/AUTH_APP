@@ -26,6 +26,7 @@ const PasswordCriteria = ({ password }) => {
 };
 
 const PasswordStrengthMeter = ({ password }) => {
+    
     const getStrength = (pass) => {
         let strength = 0;
         if (pass.length >= 6) strength++;
