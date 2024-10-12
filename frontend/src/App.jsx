@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import FloatingShape from "./components/FloatingShape";
+import EmailVerificationPage from './pages/EmailVerificationPage';
 
 const App = () => {
   return (
@@ -14,7 +15,8 @@ const App = () => {
       <Routes>
         <Route path='/' element={"Home"} />
         <Route path='/login' element={<LoginPage />} />
-        <Route path='/signup' element={<SignUpPage/> } />
+        <Route path='/signup' element={<SignUpPage />} />
+        <Route path='/verify-email' element={<EmailVerificationPage />} />
       </Routes>
     </div>
   );
