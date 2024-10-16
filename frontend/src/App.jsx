@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast';
 import { Route, Routes } from 'react-router-dom';
 
 import LoginPage from './pages/LoginPage';
@@ -18,6 +19,7 @@ const App = () => {
         <Route path='/signup' element={<SignUpPage />} />
         <Route path='/verify-email' element={<EmailVerificationPage />} />
       </Routes>
+      <Toaster position="bottom-right" reverseOrder={false} />
     </div>
   );
 };
