@@ -7,11 +7,14 @@ import SignUpPage from './pages/SignUpPage';
 import FloatingShape from "./components/FloatingShape";
 import EmailVerificationPage from './pages/EmailVerificationPage';
 import { useAuthStore } from './store/authStore';
-import { RedirectAuthenticatedUser } from './utils/ProtectedRoutes';
+import { RedirectAuthenticatedUser, ProtectedRoute } from './utils/ProtectedRoutes';
+import DashboardPage from './pages/DashboardPage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 
 const App = () => {
 
-  const { checkAuth, isAuthenticated, user } = useAuthStore();
+  const { checkAuth } = useAuthStore();
 
   useEffect(() => {
     checkAuth();
@@ -24,7 +27,12 @@ const App = () => {
       <FloatingShape color='bg-lime-500' size='w-32 h-32' top='40%' left='-10%' delay={2} />
 
       <Routes>
-        <Route path='/' element={"Home"} />
+        <Route path='/' element={
+          <ProtectedRoute>
+            <DashboardPage />
+          </ProtectedRoute>
+        } />
+
         <Route path='/login' element={
           <RedirectAuthenticatedUser>
             <LoginPage />
@@ -38,6 +46,20 @@ const App = () => {
         } />
 
         <Route path='/verify-email' element={<EmailVerificationPage />} />
+        <Route path='/forgot-password' element={
+          <RedirectAuthenticatedUser>
+            <ForgotPasswordPage />
+          </RedirectAuthenticatedUser>
+        } />
+
+        <Route
+          path='/reset-password/:token'
+          element={
+            <RedirectAuthenticatedUser>
+              <ResetPasswordPage />
+            </RedirectAuthenticatedUser>
+          }
+        />
       </Routes>
       <Toaster position="bottom-right" reverseOrder={false} />
     </div>
